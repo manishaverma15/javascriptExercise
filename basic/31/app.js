@@ -19,6 +19,11 @@ if((x>=40 && x<=60)&& (y>=40 && y<=60))
         document.getElementById("paragraph").innerText="y is greater"
 
     }
+    
+}
+else{
+    document.getElementById("paragraph").innerText="Enter number between range  40 to 60"
+
 }
 }
 document.getElementById("button").addEventListener('click',greatest);
