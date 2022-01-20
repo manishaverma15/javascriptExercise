@@ -10,18 +10,17 @@ function moveCharacter() {
       case "":
         break;
       case "z":
-        y[i] = 'a';
+        y[i] = "a";
         break;
       case "Z":
-        y[i] = 'A';
+        y[i] = "A";
         break;
-        default:
-            y[i]=String.fromCharCode(1 + y[i].charCodeAt(0));
+      default:
+        y[i] = String.fromCharCode(1 + y[i].charCodeAt(0));
     }
   }
-k=  y.join('');
+  k = y.join("");
 
-document.getElementById("nextCharacter").innerHTML=k;
-
+  document.getElementById("nextCharacter").innerHTML = k;
 }
 document.getElementById("button").addEventListener("click", moveCharacter);
