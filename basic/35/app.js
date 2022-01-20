@@ -6,7 +6,7 @@ function eight() {
   y = parseInt(document.getElementById("SecondNumber").value);
   console.log("second Number", y);
   z = x + y;
-  document.getElementById("paragraph").innerText = "sum of two numbers is:" + z;
+
   console.log("sum is", z);
   var k = Math.abs(x - y);
   console.log("Difference is", k);
@@ -16,9 +16,14 @@ function eight() {
       "From given numbers one number is eight";
   }
 
-  if (z == 8 || k == 8) {
+  if (z == 8 ) {
     document.getElementById("paragraph").innerText =
-      "Either sum or difference is 8";
+      "sum is 8";
   }
+  if( k == 8){
+    document.getElementById("paragraph").innerText =
+      " difference is 8";
+  }
+
 }
 document.getElementById("button").addEventListener("click", eight);
