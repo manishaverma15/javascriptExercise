@@ -2,31 +2,50 @@
 let array = [12, 44, 48, 67, 77];
 console.log("array value", array);
 document.getElementById("answer").innerHTML = array;
-let arrlength = array.length;
-let search = 48;
-document.getElementById("searchedNumber").innerHTML = search;
-// let start = 0;
-// let end = arrlength - 1;
-let binarySearch = function (array, search, start, end) {
-  
+let binarySearch = function (array, search) {
+
+  let start = 0, end = array.length - 1;
+
   while (start <= end) {
     let mid = Math.floor((start + end) / 2);
     console.log("mid value", mid);
     if (array[mid] === search) {
-      return true;
-      // document.write("element found at mid value")
+      return mid;
     }
 
-    if (array[mid] > search) {
-      return binarySearch(array, search, start, mid - 1);
+    if (array[mid] < search) {
+      start = mid + 1;
     } else {
-      return binarySearch(array, search, mid + 1, end);
+      end = mid - 1;
     }
+
   }
+  return -1;
 };
-if (binarySearch(array, search, 0, array.length - 1))
-  document.write("Element found. <br>");
-else document.write("Element not found. <br>");
+
+let onSubmit = function () {
+  search = parseInt(document.getElementById("valueToBeSearch").value); 
+  // Always check the value that either the value is in string or in other type
+  // use ParseInt in case of string to change that value in int from string. 
+  console.log("value to be search",  search);
+
+  const resultIndex = binarySearch(array, search);
+  console.log("value of result index", resultIndex)
+  if (resultIndex) {
+    document.getElementById("searchedNumber").innerHTML = "Number found at index :" + resultIndex;
+  }
+  if (resultIndex == -1) {
+    document.getElementById("searchedNumber").innerHTML = "Number is not found at any index";
+
+  }
+}
+
+document.getElementById("button").addEventListener("click", onSubmit);
+
+
+// if (binarySearch(array, search))
+//   document.write("Element found. <br>");
+// else document.write("Element not found. <br>");
 
 // let search = 48;
 // document.getElementById("searchedNumber").innerHTML=search;
@@ -53,4 +72,3 @@ else document.write("Element not found. <br>");
 //     // document.getElementById("answer").innerHTML="the element found at the position:";
 //   }
 // }
-// document.getElementById("button").addEventListener("click", binarySearch);
