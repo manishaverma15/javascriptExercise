@@ -1,39 +1,47 @@
 /*
 function calculate (num1, num2, operator): result 
 
-operator = +, -, *, %
+operator  +, -, *, %
 
 functions
 
 class
 
 */
-class data {
-  constructor(num1, num2, operator) {
-    this.num1 = num1;
-    this.num2 = num2;
-    this.operator = operator;
+class Calculator {
+  add(num1, num2) {
+    return num1 + num2;
+  }
+  sub(num1, num2) {
+    return num1 - num2;
+  }
+  multiplication(num1, num2) {
+    return num1 * num2;
+  }
+  divide(num1, num2) {
+    if (num2 == 0) {
+      console.log("cannot divide by zero")
+    }
+    else {
+      return num1 / num2;
+    }
   }
 
- calculate(){
-    switch (this.operator) {
-      case "add":
-        return this.num1 + this.num2;
-        break;
-      case "sub":
-        return this.num1 - this.num2;
-        break;
-      case "multi":
-        return this.num1 * this.num2;
-        break;
-      case "divide":
-        return this.num1 / this.num2;
-        break;
-        default:
-            return 'details is not provided'
+  calculate(num1, num2, operator) {
+    switch (operator) {
+      case "+":
+        return this.add(num1, num2);
+      case "-":
+        return this.sub(num1, num2);
+      case "*":
+        return this.multiplication(num1, num2);
+      case "/":
+        return this.divide(num1, num2);
+      default:
+        return 'All details are not provided'
     }
   }
 }
 
-  let result=new data(2,3,'add');
-console.log("result",result);
+const calculator = new Calculator();
+console.log("output :", calculator.calculate(9, 8,"-"));
