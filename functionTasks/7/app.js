@@ -11,6 +11,7 @@ function identity() {
       if (i === j) {
         arr[i][j] = 1;
         document.getElementById("identityMatrix").innerHTML = arr[i][j];
+        <br></br>
       } else {
         arr[i][j] = 0;
         document.getElementById("identityMatrix").innerHTML = arr[i][j];
