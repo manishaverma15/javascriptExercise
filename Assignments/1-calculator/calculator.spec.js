@@ -21,6 +21,6 @@ describe("Testing calculator -- class", () => {
         expect(() => calculator.calculate(1, 0, "/")).toThrow("Can't divide by zero")
     });
     test("Add 1+2=3", () => {
-        expect(calculator.calculate(1, 2, "+")).toBe(3)
+        expect(calculator.calculate(1, 2, "+")).toBe(3) 
     })
 })
