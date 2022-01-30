@@ -8,7 +8,7 @@ functions
 class
 
 */
-class Calculator {
+module.exports = class Calculator {
   add(num1, num2) {
     return num1 + num2;
   }
@@ -20,7 +20,7 @@ class Calculator {
   }
   divide(num1, num2) {
     if (num2 == 0) {
-      console.log("cannot divide by zero")
+      throw Error("Can't divide by zero")
     }
     else {
       return num1 / num2;
@@ -38,10 +38,7 @@ class Calculator {
       case "/":
         return this.divide(num1, num2);
       default:
-        return 'All details are not provided'
+        throw Error("Invalid operator")
     }
   }
 }
-
-const calculator = new Calculator();
-console.log("output :", calculator.calculate(9, 8,"-"));

@@ -1,12 +1,15 @@
 function add(num1, num2) {
     return num1 + num2;
 }
+
 function sub(num1, num2) {
     return num1 - num2;
 }
+
 function multiplication(num1, num2) {
     return num1 * num2;
 }
+
 function divide(num1, num2) {
     return num1 / num2;
 }
@@ -21,8 +24,14 @@ function calculator(num1, num2, operator) {
         case "/":
             return divide(num1, num2);
         default:
-            return console.log("All details are not provided")
+            throw Error("Invalid operator");
     }
 }
-let output = calculator(5, 2, "+");
-console.log("output :", output);
+
+module.exports = {
+    add,
+    sub,
+    multiplication,
+    divide,
+    calculator,
+}
