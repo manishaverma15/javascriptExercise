@@ -41,31 +41,18 @@ class Stack {
       throw Error("stack is empty");
     } else {
       var topElement = this.stack[this.stack.length - 1];
-      console.log("topElement", topElement);
       return topElement;
     }
   }
   entireStack() {
     if (this.stack.length === 0) {
       throw Error("stack is empty");
-    }
-    else{
-      var entireStack = this.stack[this.stack.length];
-      // console.log("entire-stack",this.stack)
-      console.log("entire-Stack",entireStack);
-      // return entireStack;
+    } else {
+      return this.stack;
     }
   }
 }
 const stack = new Stack(5);
-// stack.pushElement(4);
-// stack.pushElement(9);
-// stack.pushElement(6);
-
-// stack.popElement();
-// stack.peekElement();
-stack.entireStack();
-
 module.exports = Stack;
 
 // array[index] = value
