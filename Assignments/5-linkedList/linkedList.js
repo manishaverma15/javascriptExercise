@@ -42,6 +42,25 @@ class LinkedList {
         }
         return array;
     }
+
+     addElementAtLocation(element,index){
+         if(index <0 || index > size){
+             return console.log("enter a valid index");
+         }
+         else{
+             let node =new Node(element);
+             let currentNode,prevNode;
+             currentNode = this.node;
+             if(index === 0){
+                 node.next = this.head;
+                 this.head = node;
+             }
+             else{
+                 
+             }
+         }
+
+     }
 }
 const linkedlist = new LinkedList();
 linkedlist.add(30);
