@@ -1,10 +1,3 @@
-// Methods
-// add(element)
-// insertAt(element,location)
-// removeFrom(location)
-// removeElement(element)
-
-// Add element
 class Node {
     constructor(element, next = null) {
         this.element = element;
@@ -44,29 +37,52 @@ class LinkedList {
         array.push(currentNode.element);
         return array;
     }
+    reverseLinkedList() {
+        let prev = null;
+        let current = this.head;
+        let next = current.next;
+        if (this.head === null || this.head.next === null) {
+            return head;
+        }
+        else {
+            while (next !== null) {
+                current.next = prev;
+                prev = current;
+                current = next;
+                next = next.next;
 
-    addElementAtLocation(element, index) {
+            }
+            current.next = prev;
+            this.head = current;
+        }
+    }
+    deleteElement(index) {
+
         if (index < 0 || index > this.size) {
             return console.log("enter a valid index");
-        } else {
-            let node = new Node(element);
-            let currentNode;
-            currentNode = node;
-            if (index === 0) {
-                node.next = this.head;
-                this.head = node;
-                this.size++;
+        }
+        else {
+            let current = this.head;
+            let i = 0;
+            let prev;
 
-            } else {
-                currentNode = this.head;
-                let i = 1;
+            // delete first element
+            if (index === 0) {
+                this.head = current.next
+            }
+            else {
+                let current = this.head;
                 while (i < index) {
-                    currentNode = currentNode.next;
+                    prev = current;
+                    console.log("prev", prev);
+                    current = current.next;
+                    console.log("current", current)
                     i++;
+
                 }
-                node.next = currentNode.next;
-                currentNode.next = node;
-                this.size++;
+                prev.next = current.next;
+                console.log("after deletion", prev.next)
+                this.size--;
             }
         }
     }
@@ -77,8 +93,6 @@ linkedlist.add(90);
 linkedlist.add(39);
 linkedlist.add(34);
 linkedlist.add(36);
-linkedlist.addElementAtLocation(45, 4);
-
-
+// linkedlist.reverseLinkedList();
+linkedlist.deleteElement(3);
 console.log(linkedlist.returnArray());
-
