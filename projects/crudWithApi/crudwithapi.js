@@ -3,12 +3,12 @@ let selectedRow = null;
 let editEle = null;
 
 
-async function getTodos() {
+async function getPosts() {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
     return response.json();
 
 }
-async function deleteTodo(id, ele) {
+async function deletePost(id, ele) {
     const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
         method: 'DELETE',
     });
@@ -16,8 +16,8 @@ async function deleteTodo(id, ele) {
     console.log("deleteData", data);
     ele.remove();
 }
-async function editTodo(id, title, description) {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+async function editPost(id, title, description,ele) {
+   const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
         method: 'PATCH',
         body: JSON.stringify({
             id: id,
@@ -28,10 +28,10 @@ async function editTodo(id, title, description) {
             'Content-type': 'application/json; charset=UTF-8',
         },
     })
-    return await response.json();
+    return  response.json();
 }
 
-async function createTodo(id, title, description) {
+async function createPost(id, title, description) {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
         body: JSON.stringify({
@@ -57,12 +57,12 @@ async function form() {
     data["description"] = document.getElementById("description").value;
     console.log("description:", data["description"]);
     if (isEditing === true) {
-        const editdata = await editTodo(data["ID"], data["title"], data["description"])
+        const editdata = await editPost(data["ID"], data["title"], data["description"])
         updateRecord(editdata);
     }
     else {
-        const post = await createTodo(data["ID"], data["title"], data["description"])
-        renderTodo(post);
+        const post = await createPost(data["ID"], data["title"], data["description"])
+        renderPost(post);
     }
     resetForm();
 }
@@ -70,6 +70,7 @@ async function form() {
 async function editData(id, title, description, ele) {
     isEditing = true;
     editEle = ele;
+    console.log("value-of-editele",editEle)
     document.getElementById("ID").value = id;
     document.getElementById("title").value = title;
     document.getElementById("description").value = description;
@@ -77,7 +78,11 @@ async function editData(id, title, description, ele) {
 }
 function updateRecord(data) {
     console.log("data", data);
-    editEle.firstChild.innerHTML = id;
+    editEle.id = data.id;
+    editEle.title = data.title;
+    editEle.description = data.description;
+
+
 
 }
 function resetForm() {
@@ -86,12 +91,12 @@ function resetForm() {
     document.getElementById("description").value = "";
 
 }
-function renderTodo(todo) {
+function renderPost(todo) {
     const ele = document.createElement('div');
     ele.innerHTML = todoHtml(todo.id, todo.title, todo.body);
     document.body.appendChild(ele);
     document.getElementById(`delete-post-${todo.id}`)
-        .addEventListener("click", () => deleteTodo(todo.id, ele));
+        .addEventListener("click", () => deletePost(todo.id, ele));
     document.getElementById(`edit-post-${todo.id}`)
         .addEventListener("click", () => editData(todo.id, todo.title, todo.body, ele));
 }
@@ -110,10 +115,10 @@ function todoHtml(id, title, body) {
 
 
 async function onClick() {
-    const todos = await getTodos();
+    const todos = await getPosts();
     console.log("array", todos)
     for (const todo of todos) {
-        renderTodo(todo);
+        renderPost(todo);
     }
 
 }
