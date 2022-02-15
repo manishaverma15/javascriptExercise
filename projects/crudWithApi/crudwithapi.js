@@ -1,5 +1,7 @@
 let isEditing = false;
 let selectedRow = null;
+let editEle = null;
+
 
 async function getTodos() {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
@@ -14,21 +16,19 @@ async function deleteTodo(id, ele) {
     console.log("deleteData", data);
     ele.remove();
 }
-async function editTodo(id, title, description, ele) {
+async function editTodo(id, title, description) {
     fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
         method: 'PATCH',
         body: JSON.stringify({
             id: id,
             title: title,
-            description: description,
+            body: description,
         }),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
         },
     })
-    const data = await response.json();
-    console.log("edit-data", data);
-    ele.editData();
+    return await response.json();
 }
 
 async function createTodo(id, title, description) {
@@ -56,30 +56,29 @@ async function form() {
     console.log("title:", data["title"]);
     data["description"] = document.getElementById("description").value;
     console.log("description:", data["description"]);
-    const post = await createTodo(data["ID"], data["title"], data["description"])
     if (isEditing === true) {
-        updateRecord(data);
+        const editdata = await editTodo(data["ID"], data["title"], data["description"])
+        updateRecord(editdata);
     }
     else {
+        const post = await createTodo(data["ID"], data["title"], data["description"])
         renderTodo(post);
-        // renderTodo(data);
     }
     resetForm();
 }
 
-async function editData(id, title, body) {
+async function editData(id, title, description, ele) {
     isEditing = true;
-    console.log("id - title - body :", id, title, body)
+    editEle = ele;
     document.getElementById("ID").value = id;
     document.getElementById("title").value = title;
-    document.getElementById("email").value = body;
+    document.getElementById("description").value = description;
 
 }
 function updateRecord(data) {
     console.log("data", data);
-    id = data.id;
-    title = data.title;
-    body = data.body;
+    editEle.firstChild.innerHTML = id;
+
 }
 function resetForm() {
     document.getElementById("ID").value = "";
@@ -99,9 +98,9 @@ function renderTodo(todo) {
 
 function todoHtml(id, title, body) {
     return `
-        <span>ID = ${id} </span> <br>
-        <span>Title = ${title} </span> <br>
-        <span> Description = ${body} </span> <br>
+        <span id="eleid">ID = ${id} </span> <br>
+        <span id = "eletitle">Title = ${title} </span> <br>
+        <span id = "eledescription"> Description = ${body} </span> <br>
 
         <button id="delete-post-${id}">Delete</button>
         <button id="edit-post-${id}">Edit</button>
