@@ -43,25 +43,26 @@ class FormService {
     //   );
     //   this.updateRecord(editdata);
     // } else {
-    const post = await createPost(
-      data["ID"],
-      data["title"],
-      data["description"]
-    );
-    this.renderPost(post);
+    // const post = await createPost(
+    //   data["ID"],
+    //   data["title"],
+    //   data["description"]
+    // );
+    // this.renderPost(post);
     // }
-    this.resetForm();
+    // this.resetForm();
+    return data;
   }
-  resetForm() {
-    document.getElementById("ID").value = "";
-    document.getElementById("title").value = "";
-    document.getElementById("description").value = "";
-  }
+  // resetForm() {
+  //   document.getElementById("ID").value = "";
+  //   document.getElementById("title").value = "";
+  //   document.getElementById("description").value = "";
+  // }
 
-  renderPost(todo) {
-    const ele = document.createElement("div");
-    ele.innerHTML = todoHtml(todo.id, todo.title, todo.body);
-    document.body.appendChild(ele);
+  // renderPost(todo) {
+  //   const ele = document.createElement("div");
+  //   ele.innerHTML = todoHtml(todo.id, todo.title, todo.body);
+  //   document.body.appendChild(ele);
     // document
     //   .getElementById(`delete-post-${todo.id}`)
     //   .addEventListener("click", () => deletePost(todo.id, ele));
@@ -70,25 +71,25 @@ class FormService {
     //   .addEventListener("click", () =>
     //     editData(todo.id, todo.title, todo.body, ele)
     //   );
-  }
-  todoHtml(id, title, body) {
-    return `
-        <span>ID = ${id} </span> <br>
-        <span>Title = ${title} </span> <br>
-        <span> Description = ${body} </span> <br>
+  // }
+  // todoHtml(id, title, body) {
+  //   return `
+  //       <span>ID = ${id} </span> <br>
+  //       <span>Title = ${title} </span> <br>
+  //       <span> Description = ${body} </span> <br>
 
-        // <button id="delete-post-${id}">Delete</button>
-        // <button id="edit-post-${id}">Edit</button>
-        <br>
-    `;
-  }
-  async onClick() {
-    const todos = await getPosts();
-    console.log("array", todos);
-    for (const todo of todos) {
-      renderPost(todo);
-    }
-  }
+  //       // <button id="delete-post-${id}">Delete</button>
+  //       // <button id="edit-post-${id}">Edit</button>
+  //       <br>
+  //   `;
+  // }
+  // async onClick() {
+  //   const todos = await getPosts();
+  //   console.log("array", todos);
+  //   for (const todo of todos) {
+  //     renderPost(todo);
+  //   }
+  // }
 }
 
 async function init() {
@@ -99,9 +100,10 @@ async function init() {
   //  console.log( "form-data", await getApiData.createPost());
   const getFormData = new FormService();
   console.log("forms", getFormData);
-  console.log("all-data", getFormData.createForm());
-  document.getElementById("button").addEventListener("click", this.onClick());
-  document.getElementById("add").addEventListener("click", this.createForm());
+  // console.log("all-data", getFormData.createForm());
+  document.getElementById("add").addEventListener("click", getFormData.createForm());
+  // document.getElementById("button").addEventListener("click", this.onClick());
+  // document.getElementById("add").addEventListener("click", this.createForm());
 
   // const getFormData = new createForm();
   // console.log("form-data",getFormData);
