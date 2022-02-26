@@ -1,5 +1,3 @@
-let isEditing = false;
-
 class ApiService {
   async getPosts() {
     const response = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -32,29 +30,30 @@ class ApiService {
     return response.json();
   }
 
-   async editPost (id, title, description, ele) {
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${id}`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({
-            id: id,
-            title: title,
-            body: description,
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
-      return response.json();
-    }
-    
+  async editPost(id, title, description, ele) {
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          id: id,
+          title: title,
+          body: description,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    return response.json();
+  }
 }
 
 class FormService {
   constructor() {
     this.apiService = new ApiService();
+    this.isEditing = false;
+    this.editElement = null;
   }
 
   async createPost() {
@@ -62,7 +61,7 @@ class FormService {
     data["id"] = document.getElementById("id").value;
     data["title"] = document.getElementById("title").value;
     data["description"] = document.getElementById("description").value;
-    if (isEditing === true) {
+    if (this.isEditing === true) {
       const editdata = await this.apiService.editPost(
         data["id"],
         data["title"],
@@ -118,23 +117,23 @@ class FormService {
     await this.apiService.deletePost(postId);
     element.remove();
   }
-    editData(id, title, description, ele) {
-    isEditing = true;
-   let editEle = ele;
-    console.log("value-of-editele", editEle);
+
+  editData(id, title, description, editEle) {
+    this.isEditing = true;
+    this.editElement = editEle;
     document.getElementById("id").value = id;
     document.getElementById("title").value = title;
     document.getElementById("description").value = description;
   }
 
-   updateRecord(data) {
-  console.log("data", data);
-  var spans = editEle.getElementsByTagName("span");
-console.log("value-of-spans",spans);
-  spans[0].innerHTML = data.id;
-  spans[1].innerHTML = data.title;
-  spans[2].innerHTML = data.body;
-}
+  updateRecord(data) {
+    console.log("data", data);
+    var spans = this.editElement.getElementsByTagName("span");
+    console.log("value-of-spans", spans);
+    spans[0].innerHTML = data.id;
+    spans[1].innerHTML = data.title;
+    spans[2].innerHTML = data.body;
+  }
 
   resetForm() {
     document.getElementById("id").value = "";
